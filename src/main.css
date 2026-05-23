@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+
+@plugin 'tailwind-scrollbar';
+
+@theme inline {
+  --color-twitch: #9146ff;
+}
