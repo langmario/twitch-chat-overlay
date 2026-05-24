@@ -6,6 +6,8 @@
 @theme inline {
   --default-font-family: 'Inter Variable';
   --color-twitch: #9146ff;
+  --color-mod: #00ad03;
+  --color-vip: #e005b9;
   --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
