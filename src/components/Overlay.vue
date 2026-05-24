@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { ChatEvent } from '@/types'
+import type { ChatEvent, ChatMessageEvent } from '@/types'
 
 import ChatMessage from './ChatMessage.vue'
 import SubMessage from './SubMessage.vue'
 
 defineProps<{ events: ChatEvent[] }>()
+const emit = defineEmits<{ highlight: [ChatMessageEvent] }>()
 </script>
 
 <template>
@@ -16,7 +17,12 @@ defineProps<{ events: ChatEvent[] }>()
       enter-from-class="opacity-0 translate-x-16"
     >
       <template v-for="event of events" :key="event.id">
-        <ChatMessage v-if="event.type === 'message'" v-bind="event" compact />
+        <ChatMessage
+          v-if="event.type === 'message'"
+          v-bind="event"
+          compact
+          @highlight="emit('highlight', event)"
+        />
       </template>
     </TransitionGroup>
   </ul>

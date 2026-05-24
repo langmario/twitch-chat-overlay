@@ -10,8 +10,9 @@ import type { ChatMessageEvent } from '@/types'
 const { compact, user, text, emoteOffsets } = defineProps<
   { compact?: boolean } & Omit<ChatMessageEvent, 'type'>
 >()
-const messageChunks = computed(() => parseChatMessage(text, emoteOffsets))
+const emit = defineEmits<{ highlight: [] }>()
 
+const messageChunks = computed(() => parseChatMessage(text, emoteOffsets))
 const isMod = computed(() => user.badges.get('moderator') === '1')
 const isVIP = computed(() => user.badges.get('vip') === '1')
 </script>
@@ -20,7 +21,8 @@ const isVIP = computed(() => user.badges.get('vip') === '1')
   <li
     :data-mod="isMod"
     :data-vip="isVIP"
-    class="group/message data-[mod=true]:border-l-mod data-[vip=true]:border-l-vip border-y-2 border-l-4 border-transparent px-4 py-1 leading-tight"
+    class="group/message data-[mod=true]:border-l-mod data-[vip=true]:border-l-vip cursor-pointer border-y-2 border-l-4 border-transparent px-4 py-1 leading-tight transition hover:bg-white/10"
+    @click="emit('highlight')"
   >
     <div v-if="parent" class="mb-1 flex gap-1 truncate text-[0.8em] text-mist-500">
       <IconReply class="shrink-0 -scale-x-100" />
