@@ -19,6 +19,7 @@ const client = new ChatClient({
 client.onConnect(() => console.log('Chat client connected'))
 client.onDisconnect(() => console.log('Chat client disconnected'))
 client.onMessage((_channel, user, text, msg) => {
+  console.log(msg)
   events.value.push({
     id: msg.id,
     type: 'message',
@@ -32,6 +33,7 @@ client.onMessage((_channel, user, text, msg) => {
     flags: {
       isMod: msg.userInfo.badges.get('moderator') === '1',
       isVIP: msg.userInfo.badges.get('vip') === '1',
+      isBroadcaster: msg.userInfo.badges.get('broadcaster') === '1',
       isFirst: msg.isFirst,
     },
     parent: msg.isReply

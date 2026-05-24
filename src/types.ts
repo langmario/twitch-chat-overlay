@@ -23,6 +23,7 @@ export type Flags = {
   isMod?: boolean
   isVIP?: boolean
   isFirst?: boolean
+  isBroadcaster?: boolean
 }
 
 export type User = {
