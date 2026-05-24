@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ChatClient } from '@twurple/chat'
-import { onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 import FormattedMessage from '@/components/FormattedMessage.vue'
@@ -19,7 +19,6 @@ const client = new ChatClient({
 client.onConnect(() => console.log('Chat client connected'))
 client.onDisconnect(() => console.log('Chat client disconnected'))
 client.onMessage((_channel, user, text, msg) => {
-  console.log(msg.userInfo.badges)
   events.value.push({
     id: msg.id,
     type: 'message',
@@ -30,7 +29,12 @@ client.onMessage((_channel, user, text, msg) => {
     },
     text,
     emoteOffsets: msg.emoteOffsets,
-    parent: msg.parentMessageId
+    flags: {
+      isMod: msg.userInfo.badges.get('moderator') === '1',
+      isVIP: msg.userInfo.badges.get('vip') === '1',
+      isFirst: msg.isFirst,
+    },
+    parent: msg.isReply
       ? {
           user: msg.parentMessageUserDisplayName as string,
           text: msg.parentMessageText as string,

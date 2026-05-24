@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { parseChatMessage, buildEmoteImageUrl } from '@twurple/chat'
 import { computed } from 'vue'
 import IconReply from '~icons/mdi/reply'
 
@@ -13,17 +12,14 @@ const { compact, user, text, emoteOffsets } = defineProps<
   { compact?: boolean } & Omit<ChatMessageEvent, 'type'>
 >()
 const emit = defineEmits<{ highlight: [] }>()
-
-const messageChunks = computed(() => parseChatMessage(text, emoteOffsets))
-const isMod = computed(() => user.badges.get('moderator') === '1')
-const isVIP = computed(() => user.badges.get('vip') === '1')
 </script>
 
 <template>
   <li
-    :data-mod="isMod"
-    :data-vip="isVIP"
-    class="group/message data-[mod=true]:border-l-mod data-[vip=true]:border-l-vip cursor-pointer border-y-2 border-l-4 border-transparent px-4 py-0.5 leading-tight transition hover:bg-white/7"
+    :data-mod="flags?.isMod"
+    :data-vip="flags?.isVIP"
+    :data-first="flags?.isFirst"
+    class="group/message data-[mod=true]:border-l-mod data-[mod=true]:bg-mod/5 data-[vip=true]:border-l-vip data-[vip=true]:bg-vip/5 cursor-pointer border-y-2 border-l-4 border-transparent px-4 py-0.5 leading-tight transition hover:bg-white/7 data-[first=true]:border-l-blue-300 data-[first=true]:bg-blue-300/5"
     @click="emit('highlight')"
   >
     <div v-if="parent" class="mb-1 flex gap-1 truncate text-[0.8em] text-mist-500">
@@ -34,8 +30,8 @@ const isVIP = computed(() => user.badges.get('vip') === '1')
     <div>
       <span class="inline-block text-mist-200">
         <div class="mr-1.5 inline-flex h-lh gap-1 align-bottom empty:mr-0">
-          <img v-if="isMod" :src="IconMod" class="inline align-text-bottom" />
-          <img v-if="isVIP" :src="IconVIP" class="inline align-text-bottom" />
+          <img v-if="flags?.isMod" :src="IconMod" class="inline align-text-bottom" />
+          <img v-if="flags?.isVIP" :src="IconVIP" class="inline align-text-bottom" />
         </div>
         <span class="text-twitch font-bold" :style="{ color: user.color }">{{ user.name }}</span>
         <span class="mr-1">:</span>

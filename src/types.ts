@@ -5,6 +5,7 @@ export type ChatMessageEvent = {
   user: User
   text: string
   emoteOffsets: Map<string, string[]>
+  flags?: Flags
   parent?: {
     user: string
     text: string
@@ -16,6 +17,12 @@ export type ChatSubEvent = {
   user: User
   plan: string
   months: number
+}
+
+export type Flags = {
+  isMod?: boolean
+  isVIP?: boolean
+  isFirst?: boolean
 }
 
 export type User = {
