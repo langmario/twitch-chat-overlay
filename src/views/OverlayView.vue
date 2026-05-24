@@ -9,7 +9,7 @@ import Overlay from '../components/Overlay.vue'
 import type { ChatEvent } from '../types'
 
 const route = useRoute()
-const events = ref<Array<ChatEvent>>(new Queue(100))
+const events = ref(new Queue<ChatEvent>(100))
 
 const client = new ChatClient({
   channels: route.params.channel ? [route.params.channel.toString()] : [],
@@ -18,6 +18,7 @@ const client = new ChatClient({
 client.onConnect(() => console.log('Chat client connected'))
 client.onDisconnect(() => console.log('Chat client disconnected'))
 client.onMessage((_channel, user, text, msg) => {
+  console.log(msg.userInfo.badges)
   events.value.push({
     id: msg.id,
     type: 'message',
@@ -46,7 +47,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="h-dvh w-full text-xl">
+  <div class="h-screen w-full bg-mist-950/95 text-lg">
     <Overlay :events="events" />
   </div>
 </template>

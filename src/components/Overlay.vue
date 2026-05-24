@@ -9,7 +9,7 @@ defineProps<{ events: ChatEvent[] }>()
 
 <template>
   <ul
-    class="flex size-full snap-y snap-mandatory scrollbar-none flex-col justify-start overflow-scroll bg-mist-950/95 py-2 text-white *:last:snap-end *:last:scroll-mb-4"
+    class="flex size-full snap-y snap-mandatory scrollbar-none flex-col justify-start overflow-scroll py-2 text-white *:last:snap-end *:last:scroll-mb-4"
   >
     <TransitionGroup
       enter-active-class="transition duration-1000 ease-out-expo"
