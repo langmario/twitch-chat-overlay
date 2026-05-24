@@ -12,7 +12,7 @@ const emit = defineEmits<{ highlight: [ChatMessageEvent] }>()
 
 <template>
   <ul
-    class="flex size-full scrollbar-none flex-col justify-end gap-0.5 overflow-scroll py-2 text-white"
+    class="scrollbar-none flex size-full flex-col justify-end gap-0.5 overflow-scroll py-2 text-white"
   >
     <TransitionGroup
       enter-active-class="transition duration-1000 ease-out-expo"

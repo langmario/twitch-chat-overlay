@@ -5,7 +5,7 @@ defineProps<Omit<ChatSubEvent, 'type'>>()
 </script>
 
 <template>
-  <li class="border-twitch border-l-4 bg-white/5 px-4 py-2 leading-tight">
+  <li class="border-l-4 border-twitch bg-white/5 px-4 py-2 leading-tight">
     <div>
       <div class="text-[0.8em] font-bold" :style="{ color: user.color }">{{ user.name }}:</div>
       <div>

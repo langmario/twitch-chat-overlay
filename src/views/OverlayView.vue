@@ -87,7 +87,7 @@ onUnmounted(() => {
         <div
           class="mx-4 max-w-lg space-y-2 rounded-2xl border-2 border-mist-800 bg-linear-30 from-mist-950 to-mist-900 p-6 text-center text-white shadow-2xl/100"
         >
-          <div class="text-twitch text-xl font-bold" :style="{ color: highlighted.user.color }">
+          <div class="text-xl font-bold text-twitch" :style="{ color: highlighted.user.color }">
             {{ highlighted.user.name }}
           </div>
           <div class="text-pretty">

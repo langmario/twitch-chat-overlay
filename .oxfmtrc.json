@@ -2,6 +2,8 @@
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "semi": false,
   "singleQuote": true,
-  "sortTailwindcss": true,
+  "sortTailwindcss": {
+    "stylesheet": "src/main.css"
+  },
   "sortImports": true
 }
