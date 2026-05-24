@@ -7,6 +7,8 @@ import IconMod from '@/assets/mod.png'
 import IconVIP from '@/assets/vip.png'
 import type { ChatMessageEvent } from '@/types'
 
+import FormattedMessage from './FormattedMessage.vue'
+
 const { compact, user, text, emoteOffsets } = defineProps<
   { compact?: boolean } & Omit<ChatMessageEvent, 'type'>
 >()
@@ -39,15 +41,7 @@ const isVIP = computed(() => user.badges.get('vip') === '1')
         <span class="mr-1">:</span>
       </span>
       <span>
-        <template v-for="chunk of messageChunks">
-          <span v-if="chunk.type === 'text'">{{ chunk.text }}</span>
-          <img
-            v-else-if="chunk.type === 'emote'"
-            :src="buildEmoteImageUrl(chunk.id, { size: '2.0', backgroundType: 'dark' })"
-            :title="chunk.name"
-            class="inline h-lh"
-          />
-        </template>
+        <FormattedMessage :text="text" :emote-offsets="emoteOffsets" />
       </span>
     </div>
   </li>

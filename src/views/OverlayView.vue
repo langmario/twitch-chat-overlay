@@ -3,6 +3,7 @@ import { ChatClient } from '@twurple/chat'
 import { onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
 
+import FormattedMessage from '@/components/FormattedMessage.vue'
 import { Queue } from '@/Queue'
 
 import Overlay from '../components/Overlay.vue'
@@ -72,13 +73,13 @@ onUnmounted(() => {
         @click.self="showHighlighted = false"
       >
         <div
-          class="mx-4 space-y-2 rounded-lg border-2 border-mist-800 bg-mist-950 p-4 text-center text-white shadow-2xl/100"
+          class="mx-4 max-w-lg space-y-2 rounded-2xl border-2 border-mist-800 bg-linear-30 from-mist-950 to-mist-900 p-6 text-center text-white shadow-2xl/100"
         >
-          <div class="text-xl font-bold" :style="{ color: highlighted.user.color }">
+          <div class="text-twitch text-xl font-bold" :style="{ color: highlighted.user.color }">
             {{ highlighted.user.name }}
           </div>
-          <div class="italic">
-            &OpenCurlyDoubleQuote;{{ highlighted.text }}&CloseCurlyDoubleQuote;
+          <div class="text-pretty">
+            <FormattedMessage :text="highlighted.text" :emote-offsets="highlighted.emoteOffsets" />
           </div>
         </div>
       </div>
