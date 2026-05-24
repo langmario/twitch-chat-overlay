@@ -1,36 +1,45 @@
 <script setup lang="ts">
 import { parseChatMessage, buildEmoteImageUrl } from '@twurple/chat'
 import { computed } from 'vue'
+import IconVIP from '~icons/mdi/diamond-stone'
 import IconReply from '~icons/mdi/reply'
+import IconMod from '~icons/mdi/shield-account'
 
 import type { ChatMessageEvent } from '@/types'
 
-const { user, text, emoteOffsets } = defineProps<Omit<ChatMessageEvent, 'type'>>()
-const message = computed(() => parseChatMessage(text, emoteOffsets))
+const { compact, user, text, emoteOffsets } = defineProps<
+  { compact?: boolean } & Omit<ChatMessageEvent, 'type'>
+>()
+const messageChunks = computed(() => parseChatMessage(text, emoteOffsets))
 </script>
 
 <template>
-  <li class="flex flex-col px-4 py-1.5 leading-tight">
-    <div class="flex items-end gap-2">
-      <div class="text-[0.8em] font-bold" :style="{ color: user.color }">{{ user.name }}:</div>
-      <div
-        v-if="parent"
-        class="flex items-center gap-1 overflow-hidden text-[0.8em] leading-tight opacity-50"
-      >
-        <IconReply class="shrink-0 -scale-x-100" />
-        <span class="truncate">{{ parent.text }}</span>
-      </div>
+  <li class="group/message px-4 py-1.5 leading-tight" :data-compact="compact">
+    <div v-if="parent" class="flex gap-1 truncate text-[0.8em] text-mist-500">
+      <IconReply class="shrink-0 -scale-x-100" />
+      <span class="font-bold">{{ parent.user }}: </span>
+      <span class="truncate">{{ parent.text }}</span>
     </div>
-    <div class="group/text" :data-emote-only="message.every((c) => c.type === 'emote')">
-      <template v-for="chunk of message">
-        <span v-if="chunk.type === 'text'">{{ chunk.text }}</span>
-        <img
-          v-else-if="chunk.type === 'emote'"
-          class="-mt-0.5 inline-block h-[1.3lh] align-middle group-data-[emote-only=true]/text:h-14"
-          :title="chunk.name"
-          :src="buildEmoteImageUrl(chunk.id, { size: '3.0', backgroundType: 'dark' })"
-        />
-      </template>
+    <div class="">
+      <span class="inline-block text-mist-200">
+        <div class="mr-1 inline empty:mr-0">
+          <IconMod v-if="user.badges.has('moderator')" class="inline align-text-bottom" />
+          <IconVIP v-if="user.badges.has('vip')" class="inline align-text-bottom" />
+        </div>
+        <span class="text-twitch font-bold" :style="{ color: user.color }">{{ user.name }}</span>
+        <span class="mr-1">:</span>
+      </span>
+      <span>
+        <template v-for="chunk of messageChunks">
+          <span v-if="chunk.type === 'text'">{{ chunk.text }}</span>
+          <img
+            v-else-if="chunk.type === 'emote'"
+            :src="buildEmoteImageUrl(chunk.id, { size: '2.0', backgroundType: 'dark' })"
+            :title="chunk.name"
+            class="inline h-[1.4lh]"
+          />
+        </template>
+      </span>
     </div>
   </li>
 </template>

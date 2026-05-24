@@ -1,4 +1,4 @@
-export type ChatEvent = ChatMessageEvent | ChatSubEvent
+export type ChatEvent = (ChatMessageEvent | ChatSubEvent) & { id: string }
 
 export type ChatMessageEvent = {
   type: 'message'
@@ -21,4 +21,5 @@ export type ChatSubEvent = {
 export type User = {
   name: string
   color?: string
+  badges: Map<string, string>
 }
