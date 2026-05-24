@@ -42,6 +42,12 @@ client.onMessage((_channel, user, text, msg) => {
       : undefined,
   })
 })
+client.onMessageRemove((_channel, messageId) => {
+  events.value.splice(
+    events.value.findIndex((m) => m.id === messageId),
+    1,
+  )
+})
 
 const highlighted = ref<ChatMessageEvent>()
 const showHighlighted = ref(false)
