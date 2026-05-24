@@ -10,7 +10,7 @@ const emit = defineEmits<{ highlight: [ChatMessageEvent] }>()
 
 <template>
   <ul
-    class="flex size-full snap-y snap-mandatory scrollbar-none flex-col justify-start overflow-scroll py-2 text-white *:last:snap-end *:last:scroll-mb-4"
+    class="flex size-full snap-y snap-mandatory scrollbar-none flex-col justify-start gap-0.5 overflow-y-scroll py-2 text-white *:last:snap-end *:last:scroll-mb-4"
   >
     <TransitionGroup
       enter-active-class="transition duration-1000 ease-out-expo"

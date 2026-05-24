@@ -23,7 +23,7 @@ const isVIP = computed(() => user.badges.get('vip') === '1')
   <li
     :data-mod="isMod"
     :data-vip="isVIP"
-    class="group/message data-[mod=true]:border-l-mod data-[vip=true]:border-l-vip cursor-pointer border-y-2 border-l-4 border-transparent px-4 py-1 leading-tight transition hover:bg-white/10"
+    class="group/message data-[mod=true]:border-l-mod data-[vip=true]:border-l-vip cursor-pointer border-y-2 border-l-4 border-transparent px-4 py-0.5 leading-tight transition hover:bg-white/7"
     @click="emit('highlight')"
   >
     <div v-if="parent" class="mb-1 flex gap-1 truncate text-[0.8em] text-mist-500">
