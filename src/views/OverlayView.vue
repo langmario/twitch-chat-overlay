@@ -43,10 +43,10 @@ client.onMessage((_channel, _user, text, msg) => {
   })
 })
 client.onMessageRemove((_channel, messageId) => {
-  events.value.splice(
-    events.value.findIndex((m) => m.id === messageId),
-    1,
-  )
+  const msg = events.value.find((m) => m.id === messageId)
+  if (msg && msg.type === 'message') {
+    msg.deleted = true
+  }
 })
 
 onMounted(() => {

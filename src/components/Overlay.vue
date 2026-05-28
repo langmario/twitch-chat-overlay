@@ -11,8 +11,8 @@ const { events } = defineProps<{ events: ChatEvent[] }>()
     class="scrollbar-none flex size-full flex-col justify-end gap-0.5 overflow-scroll py-2 text-white"
   >
     <TransitionGroup
-      enter-active-class="transition duration-1000 ease-out-expo"
-      enter-from-class="opacity-0 translate-x-16"
+      enter-active-class="transition duration-800 ease-out-expo"
+      enter-from-class="opacity-0 translate-y-8"
     >
       <template v-for="event of events" :key="event.id">
         <ChatMessage v-if="event.type === 'message'" v-bind="event" />

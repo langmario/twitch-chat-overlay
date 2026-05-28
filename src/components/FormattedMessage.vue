@@ -20,7 +20,7 @@ const isEmoteOnly = computed(() =>
       :src="buildEmoteImageUrl(chunk.id, { size: '2.0', backgroundType: 'dark' })"
       :title="chunk.name"
       class="inline"
-      :class="isEmoteOnly ? 'h-[2lh]' : 'h-[1.2lh]'"
+      :class="isEmoteOnly ? 'h-[1.5lh]' : 'h-[1.2lh]'"
     />
   </template>
 </template>

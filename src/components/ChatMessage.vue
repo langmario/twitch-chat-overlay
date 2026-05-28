@@ -17,11 +17,15 @@ const { user, text, emoteOffsets } = defineProps<Omit<ChatMessageEvent, 'type'>>
     :data-mod="flags?.isMod"
     :data-vip="flags?.isVIP"
     :data-first="flags?.isFirst"
-    class="group/message border-y-2 border-l-4 border-transparent px-4 py-0.5 leading-tight transition data-[broadcaster=true]:border-l-broadcaster data-[broadcaster=true]:bg-broadcaster/7 data-[first=true]:border-l-blue-300 data-[first=true]:bg-blue-300/7 data-[mod=true]:border-l-mod data-[mod=true]:bg-mod/7 data-[vip=true]:border-l-vip data-[vip=true]:bg-vip/7"
+    :data-deleted="deleted"
+    class="group/message border-l-4 border-transparent px-4 py-0.5 leading-tight transition data-[broadcaster=true]:border-l-broadcaster data-[broadcaster=true]:bg-broadcaster/7 data-[first=true]:border-l-blue-300 data-[first=true]:bg-blue-300/7 data-[mod=true]:border-l-mod data-[mod=true]:bg-mod/7 data-[vip=true]:border-l-vip data-[vip=true]:bg-vip/7"
   >
-    <div v-if="parent" class="mb-1 flex gap-1 truncate text-[0.8em] text-mist-500">
+    <div v-if="flags?.isFirst" class="text-xs text-blue-400 uppercase italic">
+      First time message
+    </div>
+    <div v-if="parent" class="flex gap-0.5 truncate text-[0.8em] text-mist-500">
       <IconReply class="shrink-0 -scale-x-100" />
-      <span class="truncate italic">{{ parent.text }}</span>
+      <span class="truncate pr-0.5 italic">{{ parent.text }}</span>
     </div>
     <div>
       <span class="inline-block text-mist-200">
@@ -37,7 +41,7 @@ const { user, text, emoteOffsets } = defineProps<Omit<ChatMessageEvent, 'type'>>
         <span class="font-bold text-twitch" :style="{ color: user.color }">{{ user.name }}</span>
         <span class="mr-1">:</span>
       </span>
-      <span>
+      <span class="group-data-[deleted=true]/message:blur-sm">
         <FormattedMessage :text="text" :emote-offsets="emoteOffsets" />
       </span>
     </div>

@@ -6,6 +6,7 @@ export type ChatMessageEvent = {
   text: string
   emoteOffsets: Map<string, string[]>
   flags?: Flags
+  deleted?: boolean
   parent?: {
     user: string
     text: string
