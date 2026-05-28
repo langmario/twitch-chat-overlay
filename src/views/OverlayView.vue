@@ -51,9 +51,6 @@ client.onMessageRemove((_channel, messageId) => {
   )
 })
 
-const highlighted = ref<ChatMessageEvent>()
-const showHighlighted = ref(false)
-
 onMounted(() => {
   client.connect()
 })
@@ -64,37 +61,6 @@ onUnmounted(() => {
 
 <template>
   <div class="relative h-screen w-full bg-mist-950/98">
-    <Overlay
-      :events="events"
-      @highlight="
-        (event) => {
-          highlighted = event
-          showHighlighted = true
-        }
-      "
-    />
-    <Transition
-      enter-active-class="transition duration-750 ease-out-expo"
-      leave-active-class="transition duration-750 ease-out-expo"
-      enter-from-class="opacity-0"
-      leave-to-class="opacity-0"
-    >
-      <div
-        v-if="showHighlighted && highlighted"
-        class="fixed inset-0 grid place-items-center bg-black/50"
-        @click.self="showHighlighted = false"
-      >
-        <div
-          class="mx-4 max-w-lg space-y-2 rounded-2xl border-2 border-mist-800 bg-linear-30 from-mist-950 to-mist-900 p-6 text-center text-white shadow-2xl/100"
-        >
-          <div class="text-xl font-bold text-twitch" :style="{ color: highlighted.user.color }">
-            {{ highlighted.user.name }}
-          </div>
-          <div class="text-pretty">
-            <FormattedMessage :text="highlighted.text" :emote-offsets="highlighted.emoteOffsets" />
-          </div>
-        </div>
-      </div>
-    </Transition>
+    <Overlay :events="events" />
   </div>
 </template>

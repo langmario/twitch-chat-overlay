@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import IconReply from '~icons/mdi/reply'
 
 import IconBroadcaster from '@/assets/broadcaster.png'
@@ -9,10 +8,7 @@ import type { ChatMessageEvent } from '@/types'
 
 import FormattedMessage from './FormattedMessage.vue'
 
-const { compact, user, text, emoteOffsets } = defineProps<
-  { compact?: boolean } & Omit<ChatMessageEvent, 'type'>
->()
-const emit = defineEmits<{ highlight: [] }>()
+const { user, text, emoteOffsets } = defineProps<Omit<ChatMessageEvent, 'type'>>()
 </script>
 
 <template>
@@ -22,7 +18,6 @@ const emit = defineEmits<{ highlight: [] }>()
     :data-vip="flags?.isVIP"
     :data-first="flags?.isFirst"
     class="group/message cursor-pointer border-y-2 border-l-4 border-transparent px-4 py-0.5 leading-tight transition hover:bg-white/7 data-[broadcaster=true]:border-l-broadcaster data-[broadcaster=true]:bg-broadcaster/7 data-[first=true]:border-l-blue-300 data-[first=true]:bg-blue-300/7 data-[mod=true]:border-l-mod data-[mod=true]:bg-mod/7 data-[vip=true]:border-l-vip data-[vip=true]:bg-vip/7"
-    @click="emit('highlight')"
   >
     <div v-if="parent" class="mb-1 flex gap-1 truncate text-[0.8em] text-mist-500">
       <IconReply class="shrink-0 -scale-x-100" />
