@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ChatEvent, ChatMessageEvent } from '@/types'
+import type { ChatEvent } from '@/types'
 
 import ChatMessage from './ChatMessage.vue'
 

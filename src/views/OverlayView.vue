@@ -3,11 +3,10 @@ import { ChatClient } from '@twurple/chat'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-import FormattedMessage from '@/components/FormattedMessage.vue'
 import { Queue } from '@/Queue'
 
 import Overlay from '../components/Overlay.vue'
-import type { ChatEvent, ChatMessageEvent } from '../types'
+import type { ChatEvent } from '../types'
 
 const route = useRoute()
 const events = ref(new Queue<ChatEvent>(100))
@@ -18,8 +17,7 @@ const client = new ChatClient({
 
 client.onConnect(() => console.log('Chat client connected'))
 client.onDisconnect(() => console.log('Chat client disconnected'))
-client.onMessage((_channel, user, text, msg) => {
-  console.log(msg)
+client.onMessage((_channel, _user, text, msg) => {
   events.value.push({
     id: msg.id,
     type: 'message',
