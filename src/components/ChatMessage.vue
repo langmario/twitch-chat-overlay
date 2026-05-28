@@ -4,11 +4,11 @@ import IconReply from '~icons/mdi/reply'
 import IconBroadcaster from '@/assets/broadcaster.png'
 import IconMod from '@/assets/mod.png'
 import IconVIP from '@/assets/vip.png'
-import type { ChatMessageEvent } from '@/types'
+import type { Message } from '@/types'
 
 import FormattedMessage from './FormattedMessage.vue'
 
-const { user, text, emoteOffsets } = defineProps<Omit<ChatMessageEvent, 'type'>>()
+const { user, text, emoteOffsets } = defineProps<Omit<Message, 'type'>>()
 </script>
 
 <template>

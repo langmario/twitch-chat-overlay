@@ -1,23 +1,14 @@
-export type ChatEvent = (ChatMessageEvent | ChatSubEvent) & { id: string }
-
-export type ChatMessageEvent = {
-  type: 'message'
+export type Message = {
+  id: string
   user: User
+  flags?: Flags
   text: string
   emoteOffsets: Map<string, string[]>
-  flags?: Flags
   deleted?: boolean
   parent?: {
     user: string
     text: string
   }
-}
-
-export type ChatSubEvent = {
-  type: 'sub'
-  user: User
-  plan: string
-  months: number
 }
 
 export type Flags = {
