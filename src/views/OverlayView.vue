@@ -9,7 +9,7 @@ const channel = computed(() => route.params.channel?.toString())
 </script>
 
 <template>
-  <div class="relative h-screen w-full bg-mist-950/98">
+  <div class="relative h-screen w-full bg-black/98">
     <Chat v-if="channel" :channel="channel" />
   </div>
 </template>
