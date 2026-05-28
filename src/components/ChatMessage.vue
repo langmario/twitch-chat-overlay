@@ -21,7 +21,7 @@ const { user, text, emoteOffsets } = defineProps<Message>()
     class="group/message relative px-3 py-0.5 transition data-[broadcaster=true]:bg-broadcaster/5 data-[first=true]:bg-blue-300/5 data-[mod=true]:bg-mod/5 data-[vip=true]:bg-vip/5"
   >
     <div
-      class="absolute inset-y-0 left-0 w-1 rounded-r opacity-50 group-data-[broadcaster=true]/message:bg-broadcaster group-data-[mod=true]/message:bg-mod group-data-[vip=true]/message:bg-vip"
+      class="absolute inset-y-0 left-0 w-1 rounded-r group-data-[broadcaster=true]/message:bg-broadcaster group-data-[mod=true]/message:bg-mod group-data-[vip=true]/message:bg-vip"
     ></div>
     <div v-if="flags?.isFirst" class="text-xs text-blue-400 uppercase">First message</div>
     <div v-if="parent" class="flex gap-0.5 truncate text-sm text-mist-500">
