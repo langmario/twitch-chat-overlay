@@ -16,6 +16,8 @@ export type Flags = {
   isVIP?: boolean
   isFirst?: boolean
   isBroadcaster?: boolean
+  isBot?: boolean
+  isCommand?: boolean
 }
 
 export type User = {

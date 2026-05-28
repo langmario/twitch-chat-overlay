@@ -12,7 +12,3 @@
   --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-:root {
-  font-size: 18px;
-}

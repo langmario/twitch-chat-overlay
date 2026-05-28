@@ -8,7 +8,7 @@ import type { Message } from '@/types'
 
 import FormattedMessage from './FormattedMessage.vue'
 
-const { user, text, emoteOffsets } = defineProps<Omit<Message, 'type'>>()
+const { user, text, emoteOffsets } = defineProps<Message>()
 </script>
 
 <template>
@@ -18,12 +18,13 @@ const { user, text, emoteOffsets } = defineProps<Omit<Message, 'type'>>()
     :data-vip="flags?.isVIP"
     :data-first="flags?.isFirst"
     :data-deleted="deleted"
-    class="group/message border-l-4 border-transparent px-4 py-0.5 leading-tight transition data-[broadcaster=true]:border-l-broadcaster data-[broadcaster=true]:bg-broadcaster/7 data-[first=true]:border-l-blue-300 data-[first=true]:bg-blue-300/7 data-[mod=true]:border-l-mod data-[mod=true]:bg-mod/7 data-[vip=true]:border-l-vip data-[vip=true]:bg-vip/7"
+    class="group/message relative px-3 py-0.5 transition data-[broadcaster=true]:bg-broadcaster/5 data-[first=true]:bg-blue-300/5 data-[mod=true]:bg-mod/5 data-[vip=true]:bg-vip/5"
   >
-    <div v-if="flags?.isFirst" class="text-xs text-blue-400 uppercase italic">
-      First time message
-    </div>
-    <div v-if="parent" class="flex gap-0.5 truncate text-[0.8em] text-mist-500">
+    <div
+      class="absolute inset-y-0 left-0 w-1 rounded-r opacity-50 group-data-[broadcaster=true]/message:bg-broadcaster group-data-[mod=true]/message:bg-mod group-data-[vip=true]/message:bg-vip"
+    ></div>
+    <div v-if="flags?.isFirst" class="text-xs text-blue-400 uppercase">First message</div>
+    <div v-if="parent" class="flex gap-0.5 truncate text-sm text-mist-500">
       <IconReply class="shrink-0 -scale-x-100" />
       <span class="truncate pr-0.5 italic">{{ parent.text }}</span>
     </div>
