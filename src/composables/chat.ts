@@ -3,7 +3,28 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 import type { Message } from '@/types'
 
-export const useChat = (channel: string) => {
+export class Chat<T> extends Array<T> {
+  constructor(readonly size: number) {
+    super()
+  }
+
+  push(...items: T[]): number {
+    for (const item of items) {
+      this.addToQueue(item)
+    }
+
+    return items.length
+  }
+
+  private addToQueue(item: T) {
+    if (this.length >= this.size) {
+      super.shift()
+    }
+    super.push(item)
+  }
+}
+
+export const useChat = (channel: string, max_size = 100) => {
   const client = new ChatClient({ channels: [channel] })
 
   const messages = ref<Message[]>([])
@@ -35,6 +56,9 @@ export const useChat = (channel: string) => {
     }
 
     if (!message.flags?.isBot && !message.flags?.isCommand) {
+      if (messages.value.length >= max_size) {
+        messages.value.shift()
+      }
       messages.value.push(message)
     }
   })
@@ -47,6 +71,10 @@ export const useChat = (channel: string) => {
   })
 
   onMounted(() => {
+    const savedHistory = localStorage.getItem('chat-history')
+      ? (JSON.parse(localStorage.getItem('chat-history')!) as Message[])
+      : []
+    messages.value.push(...savedHistory)
     client.connect()
   })
   onUnmounted(() => {

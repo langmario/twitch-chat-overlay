@@ -5,7 +5,7 @@ import ChatMessage from './ChatMessage.vue'
 
 const { channel } = defineProps<{ channel: string }>()
 
-const { messages } = useChat(channel)
+const { messages } = useChat(channel, 50)
 </script>
 
 <template>
