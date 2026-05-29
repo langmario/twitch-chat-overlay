@@ -3,12 +3,16 @@ export type Message = {
   user: User
   flags?: Flags
   text: string
-  emoteOffsets: Map<string, string[]>
+  emoteOffsets: EmoteOffsets
   deleted?: boolean
   parent?: {
     user: string
     text: string
   }
+}
+
+export type EmoteOffsets = {
+  [key: string]: string[]
 }
 
 export type Flags = {

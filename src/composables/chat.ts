@@ -1,4 +1,5 @@
 import { ChatClient } from '@twurple/chat'
+import { useStorage } from '@vueuse/core'
 import { onMounted, onUnmounted, ref } from 'vue'
 
 import type { Message } from '@/types'
@@ -27,8 +28,11 @@ export class Chat<T> extends Array<T> {
 export const useChat = (channel: string, max_size = 100) => {
   const client = new ChatClient({ channels: [channel] })
 
-  const messages = ref<Message[]>([])
+  const isConnected = ref(false)
+  const messages = useStorage<Message[]>('messages', [], sessionStorage)
 
+  client.onConnect(() => (isConnected.value = true))
+  client.onDisconnect(() => (isConnected.value = false))
   client.onMessage((_channel, _user, text, msg) => {
     const message: Message = {
       id: msg.id,
@@ -38,7 +42,7 @@ export const useChat = (channel: string, max_size = 100) => {
         badges: msg.userInfo.badges,
       },
       text,
-      emoteOffsets: msg.emoteOffsets,
+      emoteOffsets: Object.fromEntries(msg.emoteOffsets.entries()),
       flags: {
         isMod: msg.userInfo.badges.get('moderator') === '1',
         isVIP: msg.userInfo.badges.get('vip') === '1',
@@ -57,7 +61,7 @@ export const useChat = (channel: string, max_size = 100) => {
 
     if (!message.flags?.isBot && !message.flags?.isCommand) {
       if (messages.value.length >= max_size) {
-        messages.value.shift()
+        messages.value.splice(0, messages.value.length - max_size)
       }
       messages.value.push(message)
     }
@@ -71,15 +75,11 @@ export const useChat = (channel: string, max_size = 100) => {
   })
 
   onMounted(() => {
-    const savedHistory = localStorage.getItem('chat-history')
-      ? (JSON.parse(localStorage.getItem('chat-history')!) as Message[])
-      : []
-    messages.value.push(...savedHistory)
     client.connect()
   })
   onUnmounted(() => {
     client.quit()
   })
 
-  return { messages }
+  return { messages, isConnected }
 }

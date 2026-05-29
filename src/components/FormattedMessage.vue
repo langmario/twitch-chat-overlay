@@ -2,9 +2,13 @@
 import { parseChatMessage, buildEmoteImageUrl } from '@twurple/chat'
 import { computed } from 'vue'
 
-const { text, emoteOffsets } = defineProps<{ text: string; emoteOffsets: Map<string, string[]> }>()
+import type { EmoteOffsets } from '@/types'
 
-const chunks = computed(() => parseChatMessage(text, emoteOffsets))
+const { text, emoteOffsets } = defineProps<{ text: string; emoteOffsets: EmoteOffsets }>()
+
+const chunks = computed(() =>
+  parseChatMessage(text, new Map<string, string[]>(Object.entries(emoteOffsets))),
+)
 const isEmoteOnly = computed(() =>
   chunks.value
     .filter((c) => c.type !== 'text' || c.text.trim().length > 0)
