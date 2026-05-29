@@ -39,7 +39,9 @@ const { user, text, emoteOffsets } = defineProps<Message>()
           <img v-if="flags?.isMod" :src="IconMod" class="inline align-text-bottom" />
           <img v-if="flags?.isVIP" :src="IconVIP" class="inline align-text-bottom" />
         </div>
-        <span class="font-bold text-twitch" :style="{ color: user.color }">{{ user.name }}</span>
+        <span id="username" class="font-bold" :style="{ '--user-color': `${user.color}` }">
+          {{ user.name }}
+        </span>
         <span class="mr-1">:</span>
       </span>
       <span class="group-data-[deleted=true]/message:blur-sm">
@@ -48,3 +50,10 @@ const { user, text, emoteOffsets } = defineProps<Message>()
     </div>
   </li>
 </template>
+
+<style scoped>
+#username {
+  --color: var(--user-color, var(--color-twitch));
+  color: hsl(from var(--color) h s max(l, 40));
+}
+</style>
