@@ -1,5 +1,4 @@
 import { ChatClient } from '@twurple/chat'
-import { useStorage } from '@vueuse/core'
 import { onMounted, onUnmounted, ref } from 'vue'
 
 import type { Message } from '@/types'
@@ -29,7 +28,7 @@ export const useChat = (channel: string, max_size = 100) => {
   const client = new ChatClient({ channels: [channel] })
 
   const isConnected = ref(false)
-  const messages = useStorage<Message[]>('messages', [], sessionStorage)
+  const messages = ref<Message[]>([])
 
   client.onConnect(() => (isConnected.value = true))
   client.onDisconnect(() => (isConnected.value = false))
