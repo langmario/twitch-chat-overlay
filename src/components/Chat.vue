@@ -17,7 +17,7 @@ const { messages, isConnected } = useChat(channel, 50)
       leave-active-class="transition-all duration-300 ease-in-out absolute"
       enter-from-class="opacity-0 translate-y-full"
       leave-to-class="opacity-0"
-      class="scrollbar-none flex size-full flex-col justify-end gap-0.5 overflow-scroll scroll-smooth py-2 leading-snug transition-opacity"
+      class="scrollbar-none flex size-full flex-col justify-end gap-1 overflow-scroll scroll-smooth py-2 leading-snug transition-opacity"
       :class="{
         'opacity-50': !isConnected,
       }"
