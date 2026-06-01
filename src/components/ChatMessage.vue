@@ -18,18 +18,19 @@ const { user, text, emoteOffsets } = defineProps<Message>()
     :data-vip="flags?.isVIP"
     :data-first="flags?.isFirst"
     :data-deleted="deleted"
-    class="group/message relative px-3 py-0.5 transition data-[broadcaster=true]:bg-broadcaster/8 data-[first=true]:bg-blue-300/8 data-[mod=true]:bg-mod/8 data-[vip=true]:bg-vip/8"
+    :style="{ '--user-color': user.color }"
+    class="group/message relative isolate overflow-clip rounded px-3 py-0.5 transition will-change-transform data-[broadcaster=true]:bg-broadcaster/10 data-[first=true]:bg-blue-300/10 data-[mod=true]:bg-mod/10 data-[vip=true]:bg-vip/10"
   >
     <div
-      class="absolute inset-y-0 left-0 w-0.5 rounded-r group-data-[broadcaster=true]/message:bg-broadcaster group-data-[mod=true]/message:bg-mod group-data-[vip=true]/message:bg-vip"
+      class="absolute inset-y-0 left-0 w-0.5 group-data-[broadcaster=true]/message:bg-broadcaster group-data-[mod=true]/message:bg-mod group-data-[vip=true]/message:bg-vip"
     ></div>
-    <div v-if="flags?.isFirst" class="text-xs text-blue-400 uppercase">First message</div>
-    <div v-if="parent" class="flex gap-0.5 truncate text-sm text-mist-500">
+    <div v-if="flags?.isFirst" class="text-xs text-blue-500 uppercase italic">First message</div>
+    <div v-if="parent" class="flex gap-0.5 truncate text-sm opacity-50">
       <IconReply class="shrink-0 -scale-x-100" />
       <span class="truncate pr-0.5 italic">{{ parent.text }}</span>
     </div>
     <div>
-      <span class="inline-block text-mist-200">
+      <span class="inline-block">
         <div class="mr-1.5 inline-flex h-lh gap-1 align-bottom empty:mr-0">
           <img
             v-if="flags?.isBroadcaster"
@@ -39,7 +40,7 @@ const { user, text, emoteOffsets } = defineProps<Message>()
           <img v-if="flags?.isMod" :src="IconMod" class="inline align-text-bottom" />
           <img v-if="flags?.isVIP" :src="IconVIP" class="inline align-text-bottom" />
         </div>
-        <span id="username" class="font-bold" :style="{ '--user-color': `${user.color}` }">
+        <span id="username" class="font-bold">
           {{ user.name }}
         </span>
         <span class="mr-1">:</span>
