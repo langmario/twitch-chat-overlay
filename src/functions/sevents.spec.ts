@@ -1,12 +1,9 @@
 import { describe, expect, test } from 'vitest'
 
+import type { Emote, EmoteData } from '@/types/seventv.type'
+
 import type { MessageChunk } from './parsing'
-import {
-  parseSevenTvEmotePositions,
-  parseSevenTvEmotes,
-  type Emote,
-  type EmoteData,
-} from './seventv'
+import { parseSevenTvEmotePositions, parseSevenTvEmotes } from './seventv'
 
 const testData: EmoteData = {
   animated: false,
