@@ -32,7 +32,7 @@ const type = computed(() => {
     :data-type="type"
     :data-deleted="deleted"
     :style="{ '--user-color': user.color }"
-    class="group/message relative overflow-clip rounded px-2 py-0.5 data-[type=bot]:bg-blue-400/10 data-[type=broadcaster]:bg-broadcaster/10 data-[type=mod]:bg-mod/10 data-[type=vip]:bg-vip/10"
+    class="group/message relative overflow-clip rounded px-2 py-0.5 data-[type=bot]:bg-blue-400/15 data-[type=broadcaster]:bg-broadcaster/15 data-[type=mod]:bg-mod/10 data-[type=vip]:bg-vip/10"
   >
     <div v-if="parent" class="flex gap-0.5 truncate pl-1 text-xs font-bold opacity-50">
       <IconReply class="shrink-0 -scale-x-100" />
