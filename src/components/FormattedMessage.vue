@@ -13,9 +13,7 @@ const { text, emoteOffsets, sevenTvEmotes } = defineProps<{
 
 const chunks = computed(() => parseMessage(text, emoteOffsets, sevenTvEmotes ?? []))
 const isEmoteOnly = computed(() =>
-  chunks.value
-    .filter((c) => c.type !== 'text' || c.text.trim().length > 0)
-    .every((c) => c.type === 'emote' || c.type === '7tv_emote'),
+  chunks.value.every((c) => c.type === 'emote' || c.type === '7tv_emote'),
 )
 </script>
 
