@@ -23,14 +23,14 @@ export async function getChannelId(name: string) {
 }
 
 function escapeRegex(value: string) {
-  return value.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&')
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
 export function parseSevenTvEmotePositions(text: string, emotes: Emote[]) {
   return emotes
     .flatMap((emote) => {
       try {
-        const regex = new RegExp(`\\b${escapeRegex(emote.name)}\\b`, 'g')
+        const regex = new RegExp(`\\b${escapeRegex(emote.name)}\\b`, 'gu')
         const matches = [...text.matchAll(regex)]
         return matches.map((match) => ({
           name: emote.name,
