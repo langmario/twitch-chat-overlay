@@ -4,11 +4,12 @@ import IconReply from '~icons/mdi/reply'
 import IconBroadcaster from '@/assets/broadcaster.png'
 import IconMod from '@/assets/mod.png'
 import IconVIP from '@/assets/vip.png'
+import type { Emote } from '@/functions/seventv.ts'
 import type { Message } from '@/types'
 
 import FormattedMessage from './FormattedMessage.vue'
 
-const { user, text, emoteOffsets } = defineProps<Message>()
+const { user, text, emoteOffsets } = defineProps<Message & { sevenTvEmotes?: Emote[] }>()
 </script>
 
 <template>
@@ -46,7 +47,11 @@ const { user, text, emoteOffsets } = defineProps<Message>()
         <span class="mr-1">:</span>
       </span>
       <span class="group-data-[deleted=true]/message:blur-sm">
-        <FormattedMessage :text="text" :emote-offsets="emoteOffsets" />
+        <FormattedMessage
+          :text="text"
+          :emote-offsets="emoteOffsets"
+          :seven-tv-emotes="sevenTvEmotes"
+        />
       </span>
     </div>
   </li>

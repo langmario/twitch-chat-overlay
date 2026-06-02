@@ -1,11 +1,21 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
+
 import { useChat } from '@/composables/chat.ts'
+import { getSevenTvEmotes, type Emote } from '@/functions/seventv.ts'
 
 import ChatMessage from './ChatMessage.vue'
 
 const { channel } = defineProps<{ channel: string }>()
 
 const { messages, isConnected } = useChat(channel, 50)
+const sevenTvEmotes = ref<Emote[]>([])
+
+onMounted(async () => {
+  const emotes = await getSevenTvEmotes(channel)
+  console.log('emotes', emotes)
+  sevenTvEmotes.value = emotes
+})
 </script>
 
 <template>
@@ -22,7 +32,12 @@ const { messages, isConnected } = useChat(channel, 50)
         'opacity-50': !isConnected,
       }"
     >
-      <ChatMessage v-for="message of messages" :key="message.id" v-bind="message" />
+      <ChatMessage
+        v-for="message of messages"
+        v-bind="message"
+        :key="message.id"
+        :seven-tv-emotes="sevenTvEmotes"
+      />
     </TransitionGroup>
     <Transition
       enter-active-class="transition ease-out"

@@ -41,7 +41,7 @@ export const useChat = (channel: string, max_size = 100) => {
         badges: msg.userInfo.badges,
       },
       text,
-      emoteOffsets: Object.fromEntries(msg.emoteOffsets.entries()),
+      emoteOffsets: msg.emoteOffsets,
       flags: {
         isMod: msg.userInfo.badges.get('moderator') === '1',
         isVIP: msg.userInfo.badges.get('vip') === '1',

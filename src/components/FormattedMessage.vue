@@ -2,17 +2,20 @@
 import { parseChatMessage, buildEmoteImageUrl } from '@twurple/chat'
 import { computed } from 'vue'
 
-import type { EmoteOffsets } from '@/types'
+import { parseMessage } from '@/functions/parsing'
+import { parseSevenTvEmotes, type Emote } from '@/functions/seventv'
 
-const { text, emoteOffsets } = defineProps<{ text: string; emoteOffsets: EmoteOffsets }>()
+const { text, emoteOffsets, sevenTvEmotes } = defineProps<{
+  text: string
+  emoteOffsets: Map<string, string[]>
+  sevenTvEmotes?: Emote[]
+}>()
 
-const chunks = computed(() =>
-  parseChatMessage(text, new Map<string, string[]>(Object.entries(emoteOffsets))),
-)
+const chunks = computed(() => parseMessage(text, emoteOffsets, sevenTvEmotes ?? []))
 const isEmoteOnly = computed(() =>
   chunks.value
     .filter((c) => c.type !== 'text' || c.text.trim().length > 0)
-    .every((c) => c.type === 'emote'),
+    .every((c) => c.type === 'emote' || c.type === '7tv_emote'),
 )
 </script>
 
@@ -22,8 +25,15 @@ const isEmoteOnly = computed(() =>
     <img
       v-else-if="chunk.type === 'emote'"
       :src="buildEmoteImageUrl(chunk.id, { size: '2.0', backgroundType: 'dark' })"
-      :title="chunk.name"
       class="-my-0.5 inline"
+      :title="chunk.name"
+      :class="isEmoteOnly ? 'h-10' : 'h-[1.2lh]'"
+    />
+    <img
+      v-else-if="chunk.type === '7tv_emote'"
+      :src="chunk.url + '/' + chunk.files.at(3)?.name"
+      class="-my-0.5 inline"
+      :title="chunk.name"
       :class="isEmoteOnly ? 'h-10' : 'h-[1.2lh]'"
     />
   </template>
