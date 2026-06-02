@@ -4,8 +4,8 @@ import IconReply from '~icons/mdi/reply'
 import IconBroadcaster from '@/assets/broadcaster.png'
 import IconMod from '@/assets/mod.png'
 import IconVIP from '@/assets/vip.png'
-import type { Emote } from '@/functions/seventv.ts'
 import type { Message } from '@/types'
+import type { Emote } from '@/types/seventv.type.ts'
 
 import FormattedMessage from './FormattedMessage.vue'
 

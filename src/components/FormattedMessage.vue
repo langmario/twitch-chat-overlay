@@ -3,7 +3,7 @@ import { parseChatMessage, buildEmoteImageUrl } from '@twurple/chat'
 import { computed } from 'vue'
 
 import { parseMessage } from '@/functions/parsing'
-import { parseSevenTvEmotes, type Emote } from '@/functions/seventv'
+import type { Emote } from '@/types/seventv.type'
 
 const { text, emoteOffsets, sevenTvEmotes } = defineProps<{
   text: string

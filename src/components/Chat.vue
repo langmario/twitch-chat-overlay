@@ -2,7 +2,8 @@
 import { onMounted, ref } from 'vue'
 
 import { useChat } from '@/composables/chat.ts'
-import { getSevenTvEmotes, type Emote } from '@/functions/seventv.ts'
+import { getSevenTvEmotes } from '@/functions/seventv.ts'
+import type { Emote } from '@/types/seventv.type.ts'
 
 import ChatMessage from './ChatMessage.vue'
 
@@ -13,7 +14,6 @@ const sevenTvEmotes = ref<Emote[]>([])
 
 onMounted(async () => {
   const emotes = await getSevenTvEmotes(channel)
-  console.log('emotes', emotes)
   sevenTvEmotes.value = emotes
 })
 </script>
