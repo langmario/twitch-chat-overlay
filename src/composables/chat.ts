@@ -24,7 +24,7 @@ export class Chat<T> extends Array<T> {
   }
 }
 
-export const useChat = (channel: string, max_size = 100) => {
+export const useChat = (channel: string, options = { max_size: 100 }) => {
   const client = new ChatClient({ channels: [channel] })
 
   const isConnected = ref(false)
@@ -33,6 +33,12 @@ export const useChat = (channel: string, max_size = 100) => {
   client.onConnect(() => (isConnected.value = true))
   client.onDisconnect(() => (isConnected.value = false))
   client.onMessage((_channel, _user, text, msg) => {
+    const flags: string[] = []
+    if (msg.userInfo.badges.get('moderator') === '1') flags.push('MOD')
+    if (msg.userInfo.badges.get('vip') === '1') flags.push('VIP')
+    if (msg.userInfo.badges.get('broadcaster') === '1') flags.push('BROADCASTER')
+    if (msg.userInfo.badges.get('bot-badge') === '1') flags.push('BOT')
+    if (msg.isFirst) flags.push('FIRST_MESSAGE')
     const message: Message = {
       id: msg.id,
       user: {
@@ -42,14 +48,7 @@ export const useChat = (channel: string, max_size = 100) => {
       },
       text: text.trim(),
       emoteOffsets: msg.emoteOffsets,
-      flags: {
-        isMod: msg.userInfo.badges.get('moderator') === '1',
-        isVIP: msg.userInfo.badges.get('vip') === '1',
-        isBroadcaster: msg.userInfo.badges.get('broadcaster') === '1',
-        isBot: msg.userInfo.badges.get('bot-badge') === '1',
-        isCommand: /^![a-zA-Z]/.test(text),
-        isFirst: msg.isFirst,
-      },
+      flags,
       parent: msg.isReply
         ? {
             user: msg.parentMessageUserDisplayName as string,
@@ -58,12 +57,10 @@ export const useChat = (channel: string, max_size = 100) => {
         : undefined,
     }
 
-    if (!message.flags?.isBot && !message.flags?.isCommand) {
-      if (messages.value.length >= max_size) {
-        messages.value.splice(0, messages.value.length - max_size)
-      }
-      messages.value.push(message)
+    if (messages.value.length >= options.max_size) {
+      messages.value.splice(0, messages.value.length - options.max_size)
     }
+    messages.value.push(message)
   })
 
   client.onMessageRemove((_channel, messageId) => {

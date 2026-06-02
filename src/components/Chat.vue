@@ -9,7 +9,7 @@ import ChatMessage from './ChatMessage.vue'
 
 const { channel } = defineProps<{ channel: string }>()
 
-const { messages, isConnected } = useChat(channel, 50)
+const { messages, isConnected } = useChat(channel, { max_size: 50 })
 const sevenTvEmotes = ref<Emote[]>([])
 
 onMounted(async () => {
@@ -22,12 +22,12 @@ onMounted(async () => {
   <div class="relative size-full overflow-hidden">
     <TransitionGroup
       tag="ul"
-      move-class="transition-all duration-300 ease-in-out"
-      enter-active-class="transition-all duration-300 ease-in-out"
-      leave-active-class="transition-all duration-300 ease-in-out absolute"
-      enter-from-class="opacity-0 translate-y-full"
+      move-class="transition-all duration-250 ease-in-out"
+      enter-active-class="transition-all duration-250 ease-in-out"
+      leave-active-class="transition-all duration-250 ease-in-out absolute"
+      enter-from-class="opacity-0 translate-y-8 -translate-x-8"
       leave-to-class="opacity-0"
-      class="scrollbar-none flex size-full flex-col justify-end gap-1 overflow-scroll scroll-smooth py-2 leading-snug transition-opacity"
+      class="scrollbar-none flex size-full flex-col justify-end gap-1 overflow-scroll scroll-smooth py-2 leading-snug transition-opacity *:origin-left *:will-change-transform"
       :class="{
         'opacity-50': !isConnected,
       }"

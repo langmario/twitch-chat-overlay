@@ -1,7 +1,7 @@
 export type Message = {
   id: string
   user: User
-  flags?: Flags
+  flags: string[]
   text: string
   emoteOffsets: Map<string, string[]>
   deleted?: boolean
@@ -9,15 +9,6 @@ export type Message = {
     user: string
     text: string
   }
-}
-
-export type Flags = {
-  isMod?: boolean
-  isVIP?: boolean
-  isFirst?: boolean
-  isBroadcaster?: boolean
-  isBot?: boolean
-  isCommand?: boolean
 }
 
 export type User = {
