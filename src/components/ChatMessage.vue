@@ -23,7 +23,7 @@ const { user, text, emoteOffsets } = defineProps<Message & { sevenTvEmotes?: Emo
     class="group/message relative isolate overflow-clip rounded px-2 py-0.5 transition will-change-transform data-[broadcaster=true]:bg-broadcaster/10 data-[first=true]:bg-blue-300/10 data-[mod=true]:bg-mod/10 data-[vip=true]:bg-vip/10"
   >
     <div v-if="flags?.isFirst" class="text-xs text-blue-500 uppercase italic">First message</div>
-    <div v-if="parent" class="flex gap-0.5 truncate text-sm opacity-50">
+    <div v-if="parent" class="flex gap-0.5 truncate text-xs opacity-50">
       <IconReply class="shrink-0 -scale-x-100" />
       <span class="truncate pr-0.5 italic">{{ parent.text }}</span>
     </div>
