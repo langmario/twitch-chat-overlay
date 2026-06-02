@@ -40,7 +40,7 @@ export const useChat = (channel: string, max_size = 100) => {
         color: msg.userInfo.color,
         badges: msg.userInfo.badges,
       },
-      text,
+      text: text.trim(),
       emoteOffsets: msg.emoteOffsets,
       flags: {
         isMod: msg.userInfo.badges.get('moderator') === '1',
