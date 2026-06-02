@@ -3,5 +3,5 @@ defineProps<{ src: string; name: string }>()
 </script>
 
 <template>
-  <img :src="src" class="inline h-[1.5lh]" :title="name" />
+  <img :src="src" class="inline h-[1.3lh]" :title="name" />
 </template>
