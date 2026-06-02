@@ -12,14 +12,6 @@ const { text, emoteOffsets, sevenTvEmotes } = defineProps<{
 }>()
 
 const chunks = computed(() => parseMessage(text, emoteOffsets, sevenTvEmotes ?? []))
-const isEmoteOnly = computed(() =>
-  chunks.value.every(
-    (c) =>
-      c.type === 'emote' ||
-      c.type === '7tv_emote' ||
-      (c.type === 'text' && c.text.trim().length === 0),
-  ),
-)
 </script>
 
 <template>
@@ -28,16 +20,14 @@ const isEmoteOnly = computed(() =>
     <img
       v-else-if="chunk.type === 'emote'"
       :src="buildEmoteImageUrl(chunk.id, { size: '2.0', backgroundType: 'dark' })"
-      class="inline"
+      class="inline h-[1.2lh]"
       :title="chunk.name"
-      :class="isEmoteOnly ? 'h-10' : 'h-[1.2lh]'"
     />
     <img
       v-else-if="chunk.type === '7tv_emote'"
       :src="chunk.url + '/' + chunk.files.at(3)?.name"
-      class="inline"
+      class="inline h-[1.2lh]"
       :title="chunk.name"
-      :class="isEmoteOnly ? 'h-10' : 'h-[1.2lh]'"
     />
   </template>
 </template>
