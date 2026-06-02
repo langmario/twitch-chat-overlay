@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { parseChatMessage, buildEmoteImageUrl } from '@twurple/chat'
+import { buildEmoteImageUrl } from '@twurple/chat'
 import { computed } from 'vue'
 
 import { parseMessage } from '@/functions/parsing'

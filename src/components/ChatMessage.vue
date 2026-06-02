@@ -31,28 +31,24 @@ const { user, text, emoteOffsets } = defineProps<Message & { sevenTvEmotes?: Emo
       <span class="truncate pr-0.5 italic">{{ parent.text }}</span>
     </div>
     <div>
-      <span class="inline-block">
-        <div class="mr-1.5 inline-flex h-lh gap-1 align-bottom empty:mr-0">
-          <img
-            v-if="flags?.isBroadcaster"
-            :src="IconBroadcaster"
-            class="inline align-text-bottom"
-          />
-          <img v-if="flags?.isMod" :src="IconMod" class="inline align-text-bottom" />
-          <img v-if="flags?.isVIP" :src="IconVIP" class="inline align-text-bottom" />
-        </div>
-        <span id="username" class="font-bold">
-          {{ user.name }}
-        </span>
+      <div class="inline-block">
+        <img
+          v-if="flags?.isBroadcaster"
+          :src="IconBroadcaster"
+          class="mr-1.5 inline h-lh align-middle"
+        />
+        <img v-else-if="flags?.isMod" :src="IconMod" class="mr-1.5 inline h-lh align-middle" />
+        <img v-else-if="flags?.isVIP" :src="IconVIP" class="mr-1.5 inline h-lh align-middle" />
+        <span id="username" class="font-bold">{{ user.name }}</span>
         <span class="mr-1">:</span>
-      </span>
-      <span class="group-data-[deleted=true]/message:blur-sm">
+      </div>
+      <div class="inline group-data-[deleted=true]/message:blur-sm">
         <FormattedMessage
           :text="text"
           :emote-offsets="emoteOffsets"
           :seven-tv-emotes="sevenTvEmotes"
         />
-      </span>
+      </div>
     </div>
   </li>
 </template>
