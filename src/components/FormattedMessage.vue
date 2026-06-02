@@ -23,14 +23,14 @@ const isEmoteOnly = computed(() =>
     <img
       v-else-if="chunk.type === 'emote'"
       :src="buildEmoteImageUrl(chunk.id, { size: '2.0', backgroundType: 'dark' })"
-      class="-my-0.5 inline"
+      class="inline"
       :title="chunk.name"
       :class="isEmoteOnly ? 'h-10' : 'h-[1.2lh]'"
     />
     <img
       v-else-if="chunk.type === '7tv_emote'"
       :src="chunk.url + '/' + chunk.files.at(3)?.name"
-      class="-my-0.5 inline"
+      class="inline"
       :title="chunk.name"
       :class="isEmoteOnly ? 'h-10' : 'h-[1.2lh]'"
     />
