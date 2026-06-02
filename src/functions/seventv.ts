@@ -23,7 +23,7 @@ export async function getChannelId(name: string) {
 }
 
 function escapeRegex(value: string) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return value.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&')
 }
 
 export function parseSevenTvEmotePositions(text: string, emotes: Emote[]) {
