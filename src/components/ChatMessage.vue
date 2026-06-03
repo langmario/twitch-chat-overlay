@@ -32,10 +32,22 @@ const isBot = computed(() => user.badges.get('bot') === '1')
     </div>
     <div>
       <div class="mr-1.5 inline-block">
-        <img v-if="user.isBroadcaster" :src="IconBroadcaster" class="mr-1.5 inline h-lh" />
-        <img v-else-if="isBot" :src="IconBot" class="mr-1.5 inline h-lh" />
-        <img v-else-if="user.isMod" :src="IconMod" class="mr-1.5 inline h-lh" />
-        <img v-else-if="user.isVip" :src="IconVIP" class="mr-1.5 inline h-lh" />
+        <img
+          v-if="user.isBroadcaster"
+          :src="IconBroadcaster"
+          class="mr-1.5 inline h-[0.9lh] align-text-bottom"
+        />
+        <img v-else-if="isBot" :src="IconBot" class="mr-1.5 inline h-[0.9lh] align-text-bottom" />
+        <img
+          v-else-if="user.isMod"
+          :src="IconMod"
+          class="mr-1.5 inline h-[0.9lh] align-text-bottom"
+        />
+        <img
+          v-else-if="user.isVip"
+          :src="IconVIP"
+          class="mr-1.5 inline h-[0.9lh] align-text-bottom"
+        />
         <span id="username" class="font-bold">{{ user.displayName }}</span>
         <span>:</span>
       </div>
