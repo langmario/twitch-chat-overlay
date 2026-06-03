@@ -1,7 +1,20 @@
+import type { ChatUser } from '@twurple/chat'
+
 export type Message = {
   id: string
-  user: User
-  flags: string[]
+  user: Pick<
+    ChatUser,
+    | 'displayName'
+    | 'color'
+    | 'isArtist'
+    | 'isBroadcaster'
+    | 'isFounder'
+    | 'isLeadMod'
+    | 'isMod'
+    | 'isSubscriber'
+    | 'isVip'
+    | 'badges'
+  >
   text: string
   emoteOffsets: Map<string, string[]>
   deleted?: boolean
@@ -9,10 +22,4 @@ export type Message = {
     user: string
     text: string
   }
-}
-
-export type User = {
-  name: string
-  color?: string
-  badges: Map<string, string>
 }

@@ -33,22 +33,11 @@ export const useChat = (channel: string, options = { max_size: 100 }) => {
   client.onConnect(() => (isConnected.value = true))
   client.onDisconnect(() => (isConnected.value = false))
   client.onMessage((_channel, _user, text, msg) => {
-    const flags: string[] = []
-    if (msg.userInfo.badges.get('moderator') === '1') flags.push('MOD')
-    if (msg.userInfo.badges.get('vip') === '1') flags.push('VIP')
-    if (msg.userInfo.badges.get('broadcaster') === '1') flags.push('BROADCASTER')
-    if (msg.userInfo.badges.get('bot-badge') === '1') flags.push('BOT')
-    if (msg.isFirst) flags.push('FIRST_MESSAGE')
     const message: Message = {
       id: msg.id,
-      user: {
-        name: msg.userInfo.displayName,
-        color: msg.userInfo.color,
-        badges: msg.userInfo.badges,
-      },
+      user: msg.userInfo,
       text: text.trim(),
       emoteOffsets: msg.emoteOffsets,
-      flags,
       parent: msg.isReply
         ? {
             user: msg.parentMessageUserDisplayName as string,
