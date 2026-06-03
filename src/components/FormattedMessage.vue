@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { buildEmoteImageUrl } from '@twurple/chat'
-import { computed } from 'vue'
+import { computed, onMounted, toRaw } from 'vue'
 
 import { getMessageChunks, parseMessage } from '@/functions/parsing'
 import type { Emote as EmoteType } from '@/types/seventv.type'

@@ -67,9 +67,9 @@ export function getMessageChunks(message: string, emotes: EmotePosition[]) {
       type: 'emote',
       variant: emote.type,
       id: emote.name,
-      name: message.substring(emote.position.start, emote.position.end + 1),
+      name: message.substring(emote.position.start, emote.position.end),
     })
-    currentPos = emote.position.end + 1
+    currentPos = emote.position.end
   }
 
   if (currentPos < message.length) {
