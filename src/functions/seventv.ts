@@ -9,7 +9,7 @@ export async function getSevenTvEmotes(channel: string) {
 
   if (res.ok) {
     const data = (await res.json()) as Response
-    return data.emote_set.emotes
+    return data.emote_set?.emotes ?? []
   }
 
   return []

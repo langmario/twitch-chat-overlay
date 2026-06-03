@@ -57,8 +57,8 @@ export type EmoteSet = {
 export type Response = {
   display_name: string
   emote_capacity: number
-  emote_set: EmoteSet
-  emote_set_id: string
+  emote_set: EmoteSet | null
+  emote_set_id: string | null
   id: string
   linked_at: number
   platform: string
