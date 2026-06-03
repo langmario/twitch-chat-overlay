@@ -2,7 +2,7 @@
 import { buildEmoteImageUrl } from '@twurple/chat'
 import { computed } from 'vue'
 
-import { parseMessage } from '@/functions/parsing'
+import { getMessageChunks, parseMessage } from '@/functions/parsing'
 import type { Emote as EmoteType } from '@/types/seventv.type'
 
 import Emote from './Emote.vue'
@@ -14,6 +14,11 @@ const { text, emoteOffsets, sevenTvEmotes } = defineProps<{
 }>()
 
 const chunks = computed(() => parseMessage(text, emoteOffsets, sevenTvEmotes ?? []))
+
+const buildSevenTvUrl = (emote?: EmoteType) =>
+  emote
+    ? `${emote.data.host.url}/${emote.data.host.files.sort((a, b) => b.height - a.height).find((f) => f.format === 'WEBP')?.name}`
+    : ''
 </script>
 
 <template>
@@ -21,13 +26,12 @@ const chunks = computed(() => parseMessage(text, emoteOffsets, sevenTvEmotes ?? 
     <span v-if="chunk.type === 'text'">{{ chunk.text }}</span>
     <Emote
       v-else-if="chunk.type === 'emote'"
-      :src="buildEmoteImageUrl(chunk.id, { size: '2.0', backgroundType: 'dark' })"
       :name="chunk.name"
-    />
-    <Emote
-      v-else-if="chunk.type === '7tv_emote'"
-      :src="chunk.url + '/' + chunk.files.at(3)?.name"
-      :name="chunk.name"
+      :src="
+        chunk.variant === 'twitch'
+          ? buildEmoteImageUrl(chunk.id, { size: '3.0', backgroundType: 'dark' })
+          : buildSevenTvUrl(sevenTvEmotes?.find((e) => e.name === chunk.name))
+      "
     />
   </template>
 </template>
