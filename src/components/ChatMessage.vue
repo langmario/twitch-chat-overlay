@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, toRaw } from 'vue'
+import { computed } from 'vue'
 import IconReply from '~icons/mdi/reply'
 
 import IconBot from '@/assets/bot.png'
@@ -22,7 +22,6 @@ const isBot = computed(() => user.badges.get('bot') === '1')
     :data-mod="user.isMod"
     :data-vip="user.isVip"
     :data-subscriber="user.isSubscriber"
-    :data-deleted="deleted"
     :style="{ '--user-color': user.color }"
     class="group/message relative overflow-clip rounded px-2 py-0.5 data-[bot=true]:bg-blue-400/15 data-[broadcaster=true]:bg-broadcaster/15 data-[mod=true]:bg-mod/15 data-[vip=true]:bg-vip/10"
   >
@@ -51,8 +50,16 @@ const isBot = computed(() => user.badges.get('bot') === '1')
         <span id="username" class="font-bold">{{ user.displayName }}</span>
         <span>:</span>
       </div>
-      <div class="inline group-data-[deleted=true]/message:blur-sm">
+      <div class="inline">
+        <span v-if="deleted">
+          <span class="text-sm italic opacity-50">&lt;message deleted&gt;</span>
+          <img
+            src="https://cdn.7tv.app/emote/01F6NF001G00044EM07K5E6WYK/4x.webp"
+            class="ml-2 inline h-[1.2lh] align-text-bottom"
+          />
+        </span>
         <FormattedMessage
+          v-else
           :text="text"
           :emote-offsets="emoteOffsets"
           :seven-tv-emotes="sevenTvEmotes"
