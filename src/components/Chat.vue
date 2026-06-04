@@ -19,7 +19,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="relative size-full overflow-hidden">
+  <div class="relative size-full overflow-hidden mask-t-from-95%">
     <TransitionGroup
       tag="ul"
       move-class="transition-all duration-200 ease-in-out"
