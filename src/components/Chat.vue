@@ -22,12 +22,12 @@ onMounted(async () => {
   <div class="relative size-full overflow-hidden">
     <TransitionGroup
       tag="ul"
-      move-class="transition-all duration-250 ease-in-out"
-      enter-active-class="transition-all duration-250 ease-in-out"
-      leave-active-class="transition-all duration-250 ease-in-out absolute"
-      enter-from-class="opacity-0 translate-y-8 -translate-x-8"
+      move-class="transition-all duration-400 ease-in-out"
+      enter-active-class="transition-all duration-400 ease-in-out delay-200"
+      leave-active-class="transition-all duration-400 ease-in-out absolute"
+      enter-from-class="opacity-0 -translate-x-8"
       leave-to-class="opacity-0"
-      class="scrollbar-none flex size-full flex-col justify-end gap-1 overflow-scroll scroll-smooth py-2 leading-snug transition-opacity *:origin-left *:will-change-transform"
+      class="scrollbar-none flex size-full flex-col justify-end gap-1 overflow-scroll scroll-smooth py-2 leading-snug transition-opacity will-change-scroll *:origin-left *:will-change-transform"
       :class="{
         'opacity-50': !isConnected,
       }"

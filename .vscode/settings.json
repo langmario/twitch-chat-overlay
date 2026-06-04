@@ -13,7 +13,8 @@
     "enter-from-class",
     "enter-active-class",
     "leave-to-class",
-    "leave-active-class"
+    "leave-active-class",
+    "move-class"
   ],
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "oxc.oxc-vscode"
