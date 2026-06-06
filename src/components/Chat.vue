@@ -19,33 +19,35 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="relative size-full overflow-hidden mask-t-from-95%">
-    <TransitionGroup
-      tag="ul"
-      move-class="transition-all duration-200 ease-in-out"
-      enter-active-class="transition-all duration-200 ease-in-out delay-100"
-      leave-active-class="transition-all duration-200 ease-in-out absolute"
-      enter-from-class="opacity-0 -translate-x-8"
-      leave-to-class="opacity-0"
-      class="scrollbar-none flex size-full flex-col justify-end gap-1 overflow-scroll scroll-smooth py-2 leading-snug transition-opacity will-change-scroll *:origin-left *:will-change-transform"
-      :class="{
-        'opacity-50': !isConnected,
-      }"
-    >
-      <ChatMessage
-        v-for="message of messages"
-        v-bind="message"
-        :key="message.id"
-        :seven-tv-emotes="sevenTvEmotes"
-      />
-    </TransitionGroup>
+  <div class="relative size-full overflow-hidden">
+    <div class="size-full overflow-hidden mask-t-from-95%">
+      <TransitionGroup
+        tag="ul"
+        move-class="transition-all duration-200 ease-in-out"
+        enter-active-class="transition-all duration-200 ease-in-out delay-100"
+        leave-active-class="transition-all duration-200 ease-in-out absolute"
+        enter-from-class="opacity-0 -translate-x-8"
+        leave-to-class="opacity-0"
+        class="scrollbar-none flex size-full flex-col justify-end gap-1 overflow-scroll scroll-smooth py-2 leading-snug transition-opacity will-change-scroll *:origin-left *:will-change-transform"
+        :class="{
+          'opacity-50': !isConnected,
+        }"
+      >
+        <ChatMessage
+          v-for="message of messages"
+          v-bind="message"
+          :key="message.id"
+          :seven-tv-emotes="sevenTvEmotes"
+        />
+      </TransitionGroup>
+    </div>
     <Transition
       enter-active-class="transition ease-out"
       leave-active-class="transition ease-out"
       enter-from-class="opacity-0"
       leave-to-class="opacity-0"
     >
-      <div v-if="!isConnected" class="absolute top-4 right-4 z-10 flex items-center gap-2">
+      <div v-if="!isConnected" class="absolute top-4 right-4 flex items-center gap-2">
         <span>Offline</span>
         <span class="relative flex size-4 text-red-500">
           <span
